@@ -21,20 +21,20 @@ AutoML & Tuning: PyCaret, Optuna
 XAI (Explainable AI): SHAP (Shapley Additive Explanations)
 
 4. 데이터 정보
-출처: Kaggle Bank Customer Churn Dataset
-
-규모: 10,000 Rows, 12 Columns
+- 출처: Kaggle Bank Customer Churn Dataset
+- 링크: https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset/data
+- 규모: 10,000 Rows, 12 Columns
 
 주요 변수: credit_score, country, gender, age, balance, products_number, active_member, churn (Target) 등
 
 5. 데이터 전처리
-결측치 확인: 결측치 없음 확인.
+- 결측치 확인: 결측치 없음 확인.
 
-피처 엔지니어링: 모델 학습에 불필요한 고유 식별 번호(customer_id) 제거.
+- 피처 엔지니어링: 모델 학습에 불필요한 고유 식별 번호(customer_id) 제거.
 
-인코딩: 범주형 변수(country, gender)에 대해 Label Encoding 적용.
+- 인코딩: 범주형 변수(country, gender)에 대해 Label Encoding 적용.
 
-데이터 분할: churn 타겟 비율을 유지하기 위해 stratify 옵션을 사용하여 Train/Valid 데이터 8:2 분할.
+- 데이터 분할: churn 타겟 비율을 유지하기 위해 stratify 옵션을 사용하여 Train/Valid 데이터 8:2 분할.
 
 6. EDA 및 해석
 연령대별 이탈률: 50대 이상 고연령층 고객군에서 이탈 위험이 상대적으로 높게 나타남.
