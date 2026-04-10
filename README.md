@@ -1,79 +1,80 @@
 #  IMBK_Bank_Customer_Churn_ML
 
 🏦 IMBK_Bank_Customer_Churn_ML
-1. 프로젝트명
-- 은행 고객 이탈 분류 머신러닝 모델 개발 및 데이터 기반 인사이트 분석
+네, 맞습니다! 점(Bullet point)이나 구조가 깨지면 깃허브에서 일일이 수정하기 번거로우시죠. 이번에는 **마크다운(Markdown) 문법을 완벽하게 적용**해서, 복사해서 붙여넣기만 하면 바로 전문적인 포트폴리오처럼 보일 수 있도록 아주 깔끔하고 "이쁘게" 정리해 드릴게요.
 
-2. 기간
-- 2026년 4월 10일 (머신러닝 컴페티션)
+---
 
-3. 기술 스택
-Language: Python
+# 📑 README.md
 
-Data Analysis: Pandas, NumPy
+# 🏦 IMBK_Bank_Customer_Churn_ML
+> **은행 고객 이탈 데이터를 활용한 분류 머신러닝 모델 개발 및 데이터 기반 비즈니스 인사이트 도출 프로젝트**
 
-Visualization: Matplotlib, Seaborn
+---
 
-Machine Learning: Scikit-learn (Stacking, RandomForest, LogisticRegression, SVM, KNN)
+## 1. 🚀 프로젝트명
+**고객 이탈 분류 ML 및 인사이트 분석**
+* 본 프로젝트는 고객의 금융 행동 데이터를 분석하여 이탈 여부를 예측하고, SHAP을 활용한 사후 분석으로 구체적인 리텐션 전략을 제안하는 것을 목적으로 합니다.
 
-AutoML & Tuning: PyCaret, Optuna
+## 2. 📅 기간
+* **2026년 4월 10일** (머신러닝 컴페티션)
 
-XAI (Explainable AI): SHAP (Shapley Additive Explanations)
+## 3. 🛠 기술 스택 (Tech Stack)
+* **언어 및 환경:** `Python 3.x`, `Jupyter Notebook`
+* **데이터 분석:** `Pandas`, `NumPy`
+* **시각화:** `Matplotlib`, `Seaborn`
+* **머신러닝:** `PyCaret(AutoML)`, `Scikit-learn`, `LightGBM`, `CatBoost`, `AdaBoost`
+* **최적화 및 해석:** `Optuna` (Hyperparameter Tuning), `SHAP` (XAI)
 
-4. 데이터 정보
-- 출처: Kaggle Bank Customer Churn Dataset
-- 링크: https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset/data
-- 규모: 10,000 Rows, 12 Columns
+## 4. 📊 데이터 출처
+* **Source:** [Kaggle Bank Customer Churn Dataset](https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset/data)
+* **Dataset Info:** 10,000 rows × 12 columns
+* **Target:** `churn` (0: 유지, 1: 이탈)
 
-주요 변수: credit_score, country, gender, age, balance, products_number, active_member, churn (Target) 등
+## 5. ⚙️ 데이터 전처리
+* **데이터 정제:** 분석과 무관한 고유 식별자(`customer_id`) 제거
+* **결측치 처리:** 전수 검사 결과 결측치 없음 확인
+* **범주형 변수 처리:** `country`, `gender` 피처에 대한 `Label Encoding` 적용
+* **데이터 스케일링:** 모델 성능 최적화를 위해 `StandardScaler` 적용
+* **데이터 분할:** `Stratified Split`을 통해 타겟 비율을 유지하며 학습/검증 데이터 8:2 분할
 
-5. 데이터 전처리
-- 결측치 확인: 결측치 없음 확인.
+## 6. 🔍 EDA 및 해석
+* **이탈 현황:** 유지 고객 대비 이탈 고객의 비율이 낮아 클래스 불균형 존재 확인.
+* **연령별 패턴:** 50대 고객층에서 이탈률이 정점을 찍는 양상을 보임 (특화 상품 필요성 대두).
+* **국가별 비교:** France/Germany 대비 Spain 고객의 이탈자 수가 현저히 적음 (국가별 정책 차이 분석 필요).
+* **상관성 분석:** 피처 간 상관계수 히트맵을 통해 `age`, `balance` 등의 주요 변수 영향력 사전 파악.
 
-- 피처 엔지니어링: 모델 학습에 불필요한 고유 식별 번호(customer_id) 제거.
+## 7. 🤖 모델링 전략
+### 💎 AutoML & Tuning
+* **Model Selection:** `PyCaret`을 활용하여 F1-Score 기준 상위 4개 모델(AdaBoost, LGBM, GBC, CatBoost) 선정.
+* **Hyperparameter Tuning:** `Optuna`를 이용한 베이지안 최적화로 각 모델별 최적의 파라미터 도출.
 
-- 인코딩: 범주형 변수(country, gender)에 대해 Label Encoding 적용.
+### 🔗 Stacking Ensemble
+* **Base Models:** `AdaBoost`, `LGBM`, `GBC`, `CatBoost`
+* **Meta Model:** `LogisticRegression`
+* **Performance:** **최종 F1-Score: 0.6129**, **Accuracy: 0.8705**
 
-- 데이터 분할: churn 타겟 비율을 유지하기 위해 stratify 옵션을 사용하여 Train/Valid 데이터 8:2 분할.
+### 💡 Model Interpretation (SHAP Value)
+* `products_number`와 `age`가 이탈 결정에 가장 결정적인 영향을 미치는 핵심 변수임을 도출.
+* 독일(Germany) 거주 여부와 활성 회원(Active Member) 여부가 주요 판단 근거로 작용.
 
-6. EDA 및 해석
-연령대별 이탈률: 50대 이상 고연령층 고객군에서 이탈 위험이 상대적으로 높게 나타남.
+## 8. 🎯 인사이트 제안
+1. **고위험군 타겟 관리:** 상품 이용 수가 비정상적으로 높거나 낮은 **50대 고객**을 대상으로 전담 상담원 배정 및 자산 관리 컨설팅 제공.
+2. **활동성 강화 캠페인:** 비활성 고객(Inactive Member)의 이탈을 막기 위해 휴면 고객 대상 수수료 면제 및 개인화된 알림 이벤트 실행.
+3. **VIP 잔액 관리 프로그램:** 잔액이 높은 우량 고객의 이탈이 관찰됨에 따라, 예금 잔액에 비례한 **차등 등급제(VIP)** 및 전용 혜택 제공으로 락인(Lock-in) 효과 강화.
 
-상품 이용수: 특정 개수 이상의 상품을 이용 중인 고객들의 패턴 분석 필요.
+## 9. 📚 Reference
+* [Kaggle Dataset: Bank Customer Churn](https://www.kaggle.com/datasets/gauravtopre/bank-customer-churn-dataset)
+* [PyCaret 공식 문서](https://pycaret.org/)
+* [SHAP Library Documentation](https://shap.readthedocs.io/)
 
-활동성: 거래가 없는 휴면 고객(Inactive Member)의 이탈 경향성 확인.
+---
+### 👤 Author
+* **신유진 (Shin Yu-jin)** - *머신러닝 모델 개발 및 데이터 분석*
 
-잔액 상태: 잔액이 높은 고객층에서도 이탈이 발생하는 역설적 패턴 관찰.
+---
 
-7. 모델링 전략 (AutoML to Stacking)
-AutoML (PyCaret): F1-Score를 기준으로 성능이 우수한 상위 모델 후보군 선정.
-
-Hyperparameter Tuning: Optuna를 활용하여 개별 모델(RF, SVM, KNN)의 최적 파라미터 탐색.
-
-Stacking Pipe:
-
-Base Models: RandomForest, SVM, KNN
-
-Meta Model: Logistic Regression
-
-성능 지표: 최종 모델은 F1-Score 0.6129, Accuracy 0.8705 달성.
-
-사후 분석 (SHAP): TreeExplainer를 사용하여 모델의 의사결정에 기여도가 높은 핵심 피처 파악.
-
-8. 인사이트 및 비즈니스 제안
-고위험군 집중 관리: 특정 개수 이상의 상품을 이용하는 50대 이상 고객을 고위험군으로 분류하고 전담 상담원을 통한 자산 관리 서비스 제공.
-
-활동성 강화 이벤트: 일정 기간 거래가 없는 휴면 고객에게 수수료 면제 또는 알림 서비스를 제공하여 리텐션 유도.
-
-등급제 기반 차등 서비스: 높은 잔액 보유 고객의 이탈을 막기 위해 예금 잔액에 비례한 VIP 등급제를 시행하고 차별화된 혜택 제공.
-
-9. Reference
-Kaggle: Bank Customer Churn Dataset
-
-Scikit-learn Documentation
-
-SHAP Documentation
-
-PyCaret Classification Module
-
-본 프로젝트는 머신러닝의 풀 프로세스 이해와 데이터 해석을 통한 설명력 강화를 목적으로 수행되었습니다.
+### 💡 팁
+1. 깃허브 리포지토리 메인 화면의 **`Add a README`** 버튼을 누릅니다.
+2. 위 박스 안의 내용을 그대로 **복사(Ctrl+C)해서 붙여넣기(Ctrl+V)** 하세요.
+3. `Preview` 탭을 눌러 이쁘게 나오는지 확인하고 `Commit` 하시면 끝납니다!
